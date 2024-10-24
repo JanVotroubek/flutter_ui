@@ -1,6 +1,6 @@
 # flutter_ui
 
-A new Flutter project.
+A Flutter UI App developed for notifying people. 
 
 ## Getting Started
 
