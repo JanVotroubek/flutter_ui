@@ -53,7 +53,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: Column(
                 children: [
                   Container(
@@ -66,7 +66,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'About ',
+                    'About',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -78,13 +78,34 @@ class _AppBarScreenState extends State<AppBarScreen> {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Creators: Jan Votroubek & Maxim Albrecht \nYears of developing: 2024 \nVersion: 1.0.0 \n\n\nThis app was created as a project for the subject of Mobile Applications Development at High School and college of applied cybernetics. The app is a fictional application for the Ministry of the Interior of the Czech Republic. The app is used to notify citizens of important events and news. The app also allows citizens to set up their own profile and customize the app to their liking. The app is still in development and new features will be added in the future.',
+                    'Creators: Jan Votroubek & Maxim Albrecht \n'
+                    'Years of developing: 09/2024 -- Today \n'
+                    'Version: 0.0.2 \n',
                     textAlign: TextAlign.center,
+                  ),
+                  const Text(
+                    'This app was created as a project for the subject of Mobile Applications Development at High School and college of applied cybernetics.\n'
+                    'Application is a fictional for use of the Ministry of the Interior of the Czech Republic.\n'
+                    'The app is used to notify citizens of important events and news.'
+                    ' The app also allows citizens to set up their own profile and customize the app to their liking.\n',
+                    textAlign: TextAlign.justify,
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 16,
+                      fontSize: 15,
                       fontFamily: 'Rethink Sans',
                       wordSpacing: 0,
+                      letterSpacing: 0,
+                    )
+                  ),
+                  const Text(
+                    'The app is still in development and new features will be added in the future.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      fontFamily: 'Rethink Sans',
+                      wordSpacing: 0,
+                      letterSpacing: 0, 
                     ),
                   ),
                 ],
@@ -111,9 +132,11 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
     actions: [
       Image.asset(
         'images/mvcr_znak.png',
-        width: 75,
-        height: 75,
+        width: 50,
+        height: 50,
+        
       ),
+      const Padding(padding: EdgeInsets.only(right: 10)),
     ],
     backgroundColor: const Color(0xFF606c38),
     title: const Text(
@@ -167,7 +190,7 @@ class AppDrawerAbout extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-  ListTile(
+                ListTile(
                 tileColor: const Color(0xFFfefae0),
                 leading: const Icon(Icons.home),
                 title: const Text('Home'),
