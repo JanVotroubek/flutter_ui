@@ -123,6 +123,7 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
         width: 50,
         height: 50,
       ),
+      const Padding(padding: EdgeInsets.only(right: 10)),
     ],
     backgroundColor: const Color(0xFF606c38),
     title: const Text(

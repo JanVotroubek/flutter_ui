@@ -146,7 +146,6 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
         'images/mvcr_znak.png',
         width: 50,
         height: 50,
-        
       ),
       const Padding(padding: EdgeInsets.only(right: 10)),
     ],
