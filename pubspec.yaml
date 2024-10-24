@@ -1,0 +1,41 @@
+name: flutter_ui
+description: Flutter UI testing of Notificaton app
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 0.0.1+1
+
+environment:
+  sdk: ^3.1.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.0.20
+
+  english_words: ^4.0.0
+  provider: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - images/mvcr_znak.png
+
+fonts:
+  - family: Rethink Sans
+    fonts:
+      - asset: fonts/RethinkSans-Regular.ttf
+      - asset: fonts/RethinkSans-Bold.ttf
+        weight: 850
+      - asset: fonts/RethinkSans-Italic.ttf
+        style: italic
+      - asset: fonts/RethinkSans-BoldItalic.ttf
+        weight: 850
+        style: italic, bold
