@@ -81,17 +81,6 @@ class _AppBarScreenState extends State<AppBarScreen> {
               ),
             ),
           ),
-
-          /* Spacer(),
-          Text(
-          'Created by: Jan Votroubek, 2024-2025',
-          textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 9,
-              color: Colors.grey[500],
-            ),
-          ), */
-
           ],
         ),
       ),
@@ -113,9 +102,10 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
     actions: [
       Image.asset(
         'images/mvcr_znak.png',
-        width: 75,
-        height: 75,
+        width: 50,
+        height: 50,
       ),
+      const Padding(padding: EdgeInsets.only(right: 10)),
     ],
     backgroundColor: const Color(0xFF606c38),
     title: const Text(

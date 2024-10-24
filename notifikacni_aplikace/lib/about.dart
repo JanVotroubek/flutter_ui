@@ -45,7 +45,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
       ),
       drawerEdgeDragWidth: MediaQuery.of(context).size.width, // Set the drag width to the full width of the screen
       body: Container(
-        padding: const EdgeInsets.only(top: 40, bottom: 20),
+        padding: const EdgeInsets.only(top: 35, bottom: 10),
         width: double.infinity,
         height: double.infinity,
         color: const Color(0xFFfefae0),
@@ -59,8 +59,8 @@ class _AppBarScreenState extends State<AppBarScreen> {
                   Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFFfefae0),
-                      border: Border.all(width: 2),
-                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(width: 1.75),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                     child: Image.asset('images/mvcr_znak.png', width: 125, height: 125),
                   ),
@@ -78,20 +78,20 @@ class _AppBarScreenState extends State<AppBarScreen> {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Creators: Jan Votroubek & Maxim Albrecht \n'
-                    'Years of developing: 09/2024 -- Today \n'
-                    'Version: 0.0.2 \n',
+                    'Developers: Jan Votroubek & Maxim Albrecht\n'
+                    'Time of development: 17/10/2024 -- Today\n'
+                    'Version: 0.0.2\n',
                     textAlign: TextAlign.center,
                   ),
                   const Text(
-                    'This app was created as a project for the subject of Mobile Applications Development at High School and college of applied cybernetics.\n'
+                    'This app was created as a project at High School and College of applied cybernetics.\n'
                     'Application is a fictional for use of the Ministry of the Interior of the Czech Republic.\n'
                     'The app is used to notify citizens of important events and news.'
                     ' The app also allows citizens to set up their own profile and customize the app to their liking.\n',
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: 14,
                       fontFamily: 'Rethink Sans',
                       wordSpacing: 0,
                       letterSpacing: 0,
@@ -102,13 +102,25 @@ class _AppBarScreenState extends State<AppBarScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: 16.5,
                       fontFamily: 'Rethink Sans',
                       wordSpacing: 0,
                       letterSpacing: 0, 
                     ),
                   ),
                 ],
+              ),
+            ),
+            Spacer(),
+            Text(
+              'Created by: Jan Votroubek & Maxim Albrecht, 2024-2025',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Rethink Sans',
+                fontSize: 9,
+                color: Colors.grey[500],
+                wordSpacing: 0,
+                letterSpacing: 0,
               ),
             ),
           ],

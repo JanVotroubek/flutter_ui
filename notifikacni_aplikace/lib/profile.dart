@@ -40,7 +40,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
         duration: const Duration(milliseconds: 1000),
         curve: Curves.easeInOut,
         child: const Drawer(
-          child: AppDrawerProfile(),
+          child: AppDrawerHelp(),
         ),
       ),
       drawerEdgeDragWidth: MediaQuery.of(context).size.width, // Set the drag width to the full width of the screen
@@ -49,53 +49,95 @@ class _AppBarScreenState extends State<AppBarScreen> {
         width: double.infinity,
         height: double.infinity,
         color: const Color(0xFFfefae0),
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: Column(
-                children: [
-                  SizedBox(height: 16),
-                  Text(
-                    'Profile Page',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 28,
-                      fontFamily: 'Rethink Sans',
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
-                      letterSpacing: 0.5,
-                      decoration: TextDecoration.underline
-                    ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(text: 'Detail Text 1', tag: 'detail1'),
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    'This app was developed by Jan Votroubek during years 2024-25.',
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: 'Rethink Sans',
-                      letterSpacing: 0.5,
-                    ),
+                );
+              },
+              child: Hero(
+                tag: 'detail1',
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                ],
+                  child: Text(
+                    'Open Detail 1',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ),
-
-          /* Spacer(),
-          Text(
-          'Created by: Jan Votroubek, 2024-2025',
-          textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 9,
-              color: Colors.grey[500],
+            const SizedBox(height: 16),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(text: 'Detail Text 2', tag: 'detail2'),
+                  ),
+                );
+              },
+              child: Hero(
+                tag: 'detail2',
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    'Open Detail 2',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
             ),
-          ), */
-
+            const SizedBox(height: 16),
+            Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFfefae0),
+                border: Border.all(width: 2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                child: Text('Some other content here'),
+              ),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class DetailScreen extends StatelessWidget {
+  final String text;
+  final String tag;
+
+ const DetailScreen({super.key, required this.text, required this.tag});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Detail')),
+      body: Center(
+        child: Hero(
+          tag: tag,
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 24),
+          ),
         ),
       ),
     );
@@ -116,8 +158,8 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
     actions: [
       Image.asset(
         'images/mvcr_znak.png',
-        width: 75,
-        height: 75,
+        width: 50,
+        height: 50,
       ),
     ],
     backgroundColor: const Color(0xFF606c38),

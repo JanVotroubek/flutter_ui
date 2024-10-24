@@ -68,7 +68,8 @@ class _AppBarScreenState extends State<AppBarScreen> {
                       fontFamily: 'Rethink Sans',
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic,
-                      letterSpacing: 0.5,
+                      letterSpacing: 1,
+                      wordSpacing: 0,
                       decoration: TextDecoration.underline
                     ),
                   ),
@@ -80,7 +81,8 @@ class _AppBarScreenState extends State<AppBarScreen> {
                       color: Colors.black,
                       fontSize: 20,
                       fontFamily: 'Rethink Sans',
-                      letterSpacing: 0.5,
+                      letterSpacing: 0,
+                      wordSpacing: 0
                     ),
                   ),
                 ],
@@ -118,8 +120,8 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
     actions: [
       Image.asset(
         'images/mvcr_znak.png',
-        width: 75,
-        height: 75,
+        width: 50,
+        height: 50,
       ),
     ],
     backgroundColor: const Color(0xFF606c38),
