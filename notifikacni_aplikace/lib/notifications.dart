@@ -1,10 +1,34 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'about.dart';
 import 'main.dart';
 import 'help.dart';
 import 'profile.dart';
 import 'settings.dart';
-import 'package:flutter/services.dart'; // Import the SystemNavigator class
+
+void main() {
+  runApp(NotificationsApp());
+}
+
+class NotificationsApp extends StatelessWidget {
+  const NotificationsApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'nAPP MVČR',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => NotificationsPage(scaffoldKey: GlobalKey<ScaffoldState>()),
+        '/history': (context) => NotificationHistoryScreen(),
+        '/my_notifications': (context) => MyNotificationsScreen(),
+        '/urgent_notifications': (context) => UrgentNotificationsScreen(),
+      },
+    );
+  }
+}
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key, required this.scaffoldKey});
@@ -12,14 +36,9 @@ class NotificationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'nAPP MVČR',
-      home: AppBarScreen(title: 'nAPP MVČR', scaffoldKey: scaffoldKey),
-    );
+    return AppBarScreen(title: 'nAPP MVČR', scaffoldKey: scaffoldKey);
   }
 }
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class AppBarScreen extends StatefulWidget {
   const AppBarScreen({super.key, required this.title, required this.scaffoldKey});
@@ -36,57 +55,80 @@ class _AppBarScreenState extends State<AppBarScreen> {
     return Scaffold(
       key: widget.scaffoldKey,
       appBar: buildAppBar(context, widget.scaffoldKey),
-      drawer: AnimatedContainer(
-        duration: const Duration(milliseconds: 1000),
-        curve: Curves.easeInOut,
-        child: const Drawer(
-          child: AppDrawerMain(),
-        ),
+      drawer: Drawer(
+        child: AppDrawerNotifications(),
       ),
-      drawerEdgeDragWidth: MediaQuery.of(context).size.width, // Set the drag width to the full width of the screen
       body: Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         width: double.infinity,
         height: double.infinity,
-        color: const Color(0xFFfefae0),
+        color: Color(0xFFfefae0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFfefae0),
+                color: Color(0xFFfefae0),
                 border: Border.all(width: 2),
                 borderRadius: BorderRadius.circular(10),
               ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              child: Column(
-                children: [
-                  SizedBox(height: 16),
-                  Text(
-                    'Notifications Page',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                child: Column(
+                  children: [
+                    SizedBox(height: 16),
+                    Text(
+                      'Notifications Page',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 20),
+
+                    // Button for Notification History
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF606c38), // Zde změníš barvu pozadí
+                        foregroundColor: Colors.white, // Barva textu
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/history');
+                      },
+                      child: Text('History of notifications'),
+                    ),
+                    SizedBox(height: 10),
+
+                    // Button for My Notifications
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF606c38), // Zde změníš barvu pozadí
+                        foregroundColor: Colors.white, // Barva textu
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/my_notifications');
+                      },
+                      child: Text('My notifications'),
+                    ),
+                    SizedBox(height: 10),
+
+                    // Button for Urgent Notifications
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red, // Zde změníš barvu pozadí
+                        foregroundColor: Colors.white, // Barva textu
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/urgent_notifications');
+                      },
+                      child: Text('Urgent notifications'),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-
-          /* Spacer(),
-          Text(
-          'Created by: Jan Votroubek, 2024-2025',
-          textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 9,
-              color: Colors.grey[500],
-            ),
-          ), */
-
           ],
         ),
       ),
@@ -100,7 +142,7 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
     leading: IconButton(
       iconSize: 26,
       icon: const Icon(Icons.menu),
-      color: const Color(0xFFfefae0),
+      color: Color(0xFFfefae0),
       onPressed: () {
         scaffoldKey.currentState!.openDrawer();
       },
@@ -112,8 +154,8 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
         height: 75,
       ),
     ],
-    backgroundColor: const Color(0xFF606c38),
-    title: const Text(
+    backgroundColor: Color(0xFF606c38),
+    title: Text(
       'Ministerstvo vnitra ČR',
       style: TextStyle(
         fontSize: 22.5,
@@ -122,24 +164,22 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
         color: Color(0xFFfefae0),
       ),
     ),
-        titleSpacing: 0
+    titleSpacing: 0,
   );
 }
 
-// Class for the main drawer
-class AppDrawerMain extends StatelessWidget {
-  const AppDrawerMain({super.key});
-
+class AppDrawerNotifications extends StatelessWidget {
+  const AppDrawerNotifications({super.key});
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         AppBar(
-          backgroundColor: const Color(0xFF283618),
-          title: const Row(
+          backgroundColor: Color(0xFF283618),
+          title: Row(
             children: [
-              SizedBox(width: 8), 
+              SizedBox(width: 8),
               Text(
                 'MENU',
                 style: TextStyle(
@@ -150,10 +190,9 @@ class AppDrawerMain extends StatelessWidget {
               ),
             ],
           ),
-          titleSpacing: 0,
           leading: IconButton(
             iconSize: 26,
-            color: const Color(0xFFfefae0),
+            color: Color(0xFFfefae0),
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
@@ -164,76 +203,74 @@ class AppDrawerMain extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-ListTile(
-                tileColor: const Color(0xFFfefae0),
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
+              ListTile(
+                tileColor: Color(0xFFfefae0),
+                leading: Icon(Icons.home),
+                title: Text('Home'),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MainPage(
+                        builder: (context) => MainPage(
                         scaffoldKey: GlobalKey<ScaffoldState>(),
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
-               ListTile(
-                tileColor: const Color(0xFFfefae0),
-                leading: const Icon(Icons.notifications),
-                title: const Text('Notifications'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NotificationsPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                      ),
-                    ),
-                  );
+                    );
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                tileColor: const Color(0xFFfefae0),
+                tileColor: Color(0xFFfefae0),
+                leading: Icon(Icons.notifications),
+                title: Text('Notifications'),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SettingsPage(
+                        builder: (context) => NotificationsPage(
                         scaffoldKey: GlobalKey<ScaffoldState>(),
+                        ),
                       ),
-                    ),
-                  );
-                  // Handle the tap
+                    );
                 },
               ),
               ListTile(
-                tileColor: const Color(0xFFfefae0),
-                leading: const Icon(Icons.person),
-                title: const Text('Profile'),
+                leading: Icon(Icons.settings),
+                title: Text('Settings'),
+                tileColor: Color(0xFFfefae0),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfilePage(
+                        builder: (context) => SettingsPage(
                         scaffoldKey: GlobalKey<ScaffoldState>(),
+                        ),
                       ),
-                    ),
-                  );
-                  // Handle the tap
+                    );
                 },
               ),
               ListTile(
-                tileColor: const Color(0xFFfefae0),
-                leading: const Icon(Icons.info),
-                title: const Text('About'),
+                tileColor: Color(0xFFfefae0),
+                leading: Icon(Icons.person),
+                title: Text('Profile'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfilePage(
+                        scaffoldKey: GlobalKey<ScaffoldState>(),
+                        ),
+                      ),
+                    );
+                },
+              ),
+                ListTile(
+                tileColor: Color(0xFFfefae0),
+                leading: Icon(Icons.info),
+                title: Text('About'),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(
@@ -243,20 +280,20 @@ ListTile(
                         scaffoldKey: GlobalKey<ScaffoldState>(),
                         ),
                       ),
-                    );                  // Handle the tap
+                    );
                 },
               ),
-                Container(
-                color: const Color(0xFFfefae0), // Same color as ListTile
-                height: 1000,
-              ),
+            Container(
+              color: const Color(0xFFfefae0),
+              height: 1000,
+            ),
             ],
           ),
         ),
-          ListTile(
-          tileColor: const Color(0xFFfefae0),
-          leading: const Icon(Icons.help),
-          title: const Text('Help'),
+        ListTile(
+          tileColor: Color(0xFFfefae0),
+          leading: Icon(Icons.help),
+          title: Text('Help'),
           onTap: () {
             Navigator.pop(context);
                   Navigator.push(
@@ -267,19 +304,65 @@ ListTile(
                         ),
                       ),
                     );
-            // Handle the tap
           },
         ),
-
         ListTile(
-          tileColor: const Color(0xFFfefae0),
-          leading: const Icon(Icons.logout),
-          title: const Text('Logout'),
+          tileColor: Color(0xFFfefae0),
+          leading: Icon(Icons.logout),
+          title: Text('Logout'),
           onTap: () {
-            SystemNavigator.pop();// Handle the tap
+            SystemNavigator.pop();// Exit the app
           },
         ),
       ],
+    );
+  }
+}
+
+class NotificationHistoryScreen extends StatelessWidget {
+  const NotificationHistoryScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('History of notifications'),
+      ),
+      body: Center(
+        child: Text('History of notifications Page'),
+      ),
+    );
+  }
+}
+
+class MyNotificationsScreen extends StatelessWidget {
+  const MyNotificationsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My notifications'),
+      ),
+      body: Center(
+        child: Text('My notifications Page'),
+      ),
+    );
+  }
+}
+
+class UrgentNotificationsScreen extends StatelessWidget {
+  const UrgentNotificationsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Urgent notifications'),
+      ),
+      body: Center(
+        child: Text('Urgent notifications Page'),
+      ),
     );
   }
 }
