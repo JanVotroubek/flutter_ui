@@ -30,7 +30,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: widget.scaffoldKey,
-      appBar: buildAppBar(context, widget.scaffoldKey),
+      appBar: AppBarName(scaffoldKey: widget.scaffoldKey),
       drawer: AnimatedContainer(
         duration: const Duration(milliseconds: 1000),
         curve: Curves.easeInOut,
@@ -97,37 +97,4 @@ class _AppBarScreenState extends State<AppBarScreen> {
       ),
     );
   }
-}
-
-// Function to build the app bar
-AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
-  return AppBar(
-    leading: IconButton(
-      iconSize: 26,
-      icon: const Icon(Icons.menu),
-      color: const Color(0xFFfefae0),
-      onPressed: () {
-        scaffoldKey.currentState!.openDrawer();
-      },
-    ),
-    actions: [
-      Image.asset(
-        'images/mvcr_znak.png',
-        width: 50,
-        height: 50,
-      ),
-      const Padding(padding: EdgeInsets.only(right: 10)),
-    ],
-    backgroundColor: const Color(0xFF606c38),
-    title: const Text(
-      'Ministerstvo vnitra ČR',
-      style: TextStyle(
-        fontSize: 22.5,
-        fontFamily: 'Rethink Sans',
-        fontWeight: FontWeight.bold,
-        color: Color(0xFFfefae0),
-      ),
-    ),
-        titleSpacing: 0
-  );
 }

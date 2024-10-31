@@ -48,7 +48,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: widget.scaffoldKey,
-      appBar: buildAppBar(context, widget.scaffoldKey),
+      appBar: AppBarName(scaffoldKey: widget.scaffoldKey),
       drawer: Drawer(
         child: AppDrawer(),
       ),

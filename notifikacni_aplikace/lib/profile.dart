@@ -31,7 +31,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: widget.scaffoldKey,
-      appBar: buildAppBar(context, widget.scaffoldKey),
+      appBar: AppBarName(scaffoldKey: widget.scaffoldKey),
       drawer: AnimatedContainer(
         duration: const Duration(milliseconds: 1000),
         curve: Curves.easeInOut,

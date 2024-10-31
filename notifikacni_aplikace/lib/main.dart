@@ -43,7 +43,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: widget.scaffoldKey,
-      appBar: buildAppBar(context, widget.scaffoldKey),
+      appBar: AppBarName(scaffoldKey: widget.scaffoldKey),
       drawer: AnimatedContainer(
         duration: const Duration(milliseconds: 1000),
         curve: Curves.easeInOut,
@@ -84,17 +84,6 @@ class _AppBarScreenState extends State<AppBarScreen> {
               ),
             ),
           ),
-
-          /* Spacer(),
-          Text(
-          'Created by: Jan Votroubek, 2024-2025',
-          textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 9,
-              color: Colors.grey[500],
-            ),
-          ), */
-
           ],
         ),
       ),
@@ -102,9 +91,16 @@ class _AppBarScreenState extends State<AppBarScreen> {
   }
 }
 
-// Function to build the app bar
-AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
-  return AppBar(
+class AppBarName extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarName({super.key, required this.scaffoldKey});
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
     leading: IconButton(
       iconSize: 26,
       icon: const Icon(Icons.menu),
@@ -133,9 +129,9 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
     ),
         titleSpacing: 0
   );
+  }
 }
 
-// Class for the main drawer
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
