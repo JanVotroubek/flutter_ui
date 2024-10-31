@@ -48,7 +48,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
         duration: const Duration(milliseconds: 1000),
         curve: Curves.easeInOut,
         child: const Drawer(
-          child: AppDrawerMain(),
+          child: AppDrawer(),
         ),
       ),
       drawerEdgeDragWidth: MediaQuery.of(context).size.width, // Set the drag width to the full width of the screen
@@ -136,8 +136,8 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
 }
 
 // Class for the main drawer
-class AppDrawerMain extends StatelessWidget {
-  const AppDrawerMain({super.key});
+class AppDrawer extends StatelessWidget {
+  const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {

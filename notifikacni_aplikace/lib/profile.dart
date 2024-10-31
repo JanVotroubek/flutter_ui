@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'notifications.dart';
-import 'main.dart'; 
-import 'help.dart';
-import 'about.dart';
-import 'settings.dart';
-import 'package:flutter/services.dart'; // Import the SystemNavigator class
+import 'main.dart';
+// Import the SystemNavigator class
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key, required this.scaffoldKey});
@@ -40,7 +36,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
         duration: const Duration(milliseconds: 1000),
         curve: Curves.easeInOut,
         child: const Drawer(
-          child: AppDrawerHelp(),
+          child: AppDrawer(),
         ),
       ),
       drawerEdgeDragWidth: MediaQuery.of(context).size.width, // Set the drag width to the full width of the screen
@@ -175,162 +171,4 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
     ),
         titleSpacing: 0
   );
-}
-
-// Class for the main drawer
-class AppDrawerProfile extends StatelessWidget {
-  const AppDrawerProfile({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        AppBar(
-          backgroundColor: const Color(0xFF283618),
-          title: const Row(
-            children: [
-              SizedBox(width: 8), 
-              Text(
-                'MENU',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFfefae0),
-                ),
-              ),
-            ],
-          ),
-          titleSpacing: 0,
-          leading: IconButton(
-            iconSize: 26,
-            color: const Color(0xFFfefae0),
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-  ListTile(
-                tileColor: const Color(0xFFfefae0),
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MainPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                      ),
-                    ),
-                  );
-                },
-              ),
-               ListTile(
-                tileColor: const Color(0xFFfefae0),
-                leading: const Icon(Icons.notifications),
-                title: const Text('Notifications'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NotificationsPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                tileColor: const Color(0xFFfefae0),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SettingsPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                      ),
-                    ),
-                  );
-                  // Handle the tap
-                },
-              ),
-              ListTile(
-                tileColor: const Color(0xFFfefae0),
-                leading: const Icon(Icons.person),
-                title: const Text('Profile'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfilePage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                      ),
-                    ),
-                  );
-                  // Handle the tap
-                },
-              ),
-              ListTile(
-                tileColor: const Color(0xFFfefae0),
-                leading: const Icon(Icons.info),
-                title: const Text('About'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AboutPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
-                      ),
-                    );                  // Handle the tap
-                },
-              ),
-                Container(
-                color: const Color(0xFFfefae0), // Same color as ListTile
-                height: 1000,
-              ),
-            ],
-          ),
-        ),
-          ListTile(
-          tileColor: const Color(0xFFfefae0),
-          leading: const Icon(Icons.help),
-          title: const Text('Help'),
-          onTap: () {
-            Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HelpPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
-                      ),
-                    );
-            // Handle the tap
-          },
-        ),
-
-        ListTile(
-          tileColor: const Color(0xFFfefae0),
-          leading: const Icon(Icons.logout),
-          title: const Text('Logout'),
-          onTap: () {
-            SystemNavigator.pop();// Handle the tap
-          },
-        ),
-      ],
-    );
-  }
 }

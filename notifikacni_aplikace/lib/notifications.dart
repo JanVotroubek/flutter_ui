@@ -1,12 +1,6 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'about.dart';
 import 'main.dart';
-import 'help.dart';
-import 'profile.dart';
-import 'settings.dart';
+
 
 void main() {
   runApp(NotificationsApp());
@@ -56,7 +50,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
       key: widget.scaffoldKey,
       appBar: buildAppBar(context, widget.scaffoldKey),
       drawer: Drawer(
-        child: AppDrawerNotifications(),
+        child: AppDrawer(),
       ),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -167,157 +161,6 @@ AppBar buildAppBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) {
     ),
     titleSpacing: 0,
   );
-}
-
-class AppDrawerNotifications extends StatelessWidget {
-  const AppDrawerNotifications({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        AppBar(
-          backgroundColor: Color(0xFF283618),
-          title: Row(
-            children: [
-              SizedBox(width: 8),
-              Text(
-                'MENU',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFfefae0),
-                ),
-              ),
-            ],
-          ),
-          leading: IconButton(
-            iconSize: 26,
-            color: Color(0xFFfefae0),
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              ListTile(
-                tileColor: Color(0xFFfefae0),
-                leading: Icon(Icons.home),
-                title: Text('Home'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
-                      ),
-                    );
-                },
-              ),
-              ListTile(
-                tileColor: Color(0xFFfefae0),
-                leading: Icon(Icons.notifications),
-                title: Text('Notifications'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NotificationsPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
-                      ),
-                    );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                tileColor: Color(0xFFfefae0),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SettingsPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
-                      ),
-                    );
-                },
-              ),
-              ListTile(
-                tileColor: Color(0xFFfefae0),
-                leading: Icon(Icons.person),
-                title: Text('Profile'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProfilePage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
-                      ),
-                    );
-                },
-              ),
-                ListTile(
-                tileColor: Color(0xFFfefae0),
-                leading: Icon(Icons.info),
-                title: Text('About'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AboutPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
-                      ),
-                    );
-                },
-              ),
-            Container(
-              color: const Color(0xFFfefae0),
-              height: 1000,
-            ),
-            ],
-          ),
-        ),
-        ListTile(
-          tileColor: Color(0xFFfefae0),
-          leading: Icon(Icons.help),
-          title: Text('Help'),
-          onTap: () {
-            Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HelpPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
-                      ),
-                    );
-          },
-        ),
-        ListTile(
-          tileColor: Color(0xFFfefae0),
-          leading: Icon(Icons.logout),
-          title: Text('Logout'),
-          onTap: () {
-            SystemNavigator.pop();// Exit the app
-          },
-        ),
-      ],
-    );
-  }
 }
 
 class NotificationHistoryScreen extends StatelessWidget {
