@@ -141,7 +141,7 @@ class AppDrawer extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         AppBar(
-          backgroundColor: const Color(0xFF283618),
+          backgroundColor: const Color(0xFF606c38),
           title: const Row(
             children: [
               SizedBox(width: 8), 
@@ -248,7 +248,7 @@ class AppDrawer extends StatelessWidget {
                         scaffoldKey: GlobalKey<ScaffoldState>(),
                         ),
                       ),
-                    );                  // Handle the tap
+                    ); // Handle the tap
                 },
               ),
                 Container(
