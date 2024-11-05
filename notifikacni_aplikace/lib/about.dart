@@ -57,7 +57,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
                       border: Border.all(width: 1.75),
                       borderRadius: BorderRadius.circular(25),
                     ),
-                    child: Image.asset('images/mvcr_znak.png', width: 125, height: 125),
+                    child: Image.asset('images/flutter.png', width: 125, height: 125),
                   ),
                   const SizedBox(height: 16),
                   const Text(
@@ -75,14 +75,14 @@ class _AppBarScreenState extends State<AppBarScreen> {
                   const Text(
                     'Developers: Jan Votroubek & Maxim Albrecht\n'
                     'Time of development: 17/10/2024 -- Today\n'
-                    'Version: 0.0.2\n',
+                    'Version: 0.0.3\n',
                     textAlign: TextAlign.center,
                   ),
                   const Text(
                     'This app was created as a project at High School and College of applied cybernetics.\n'
                     'Application is a fictional for use of the Ministry of the Interior of the Czech Republic.\n'
-                    'The app is used to notify citizens of important events and news. '
-                    'The app also allows citizens to set up their own profile and customize the app to their liking.\n',
+                    'The app is used to notify politicans in MVČR of important events and news. '
+                    'The app also allows politicans to set up their own profile and customize the app to their liking.\n',
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       color: Colors.black,
@@ -106,9 +106,9 @@ class _AppBarScreenState extends State<AppBarScreen> {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Text(
-              'Created by: Jan Votroubek & Maxim Albrecht, 2024-2025',
+              'Jan Votroubek & Maxim Albrecht, 2024-2025',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Rethink Sans',
@@ -124,4 +124,3 @@ class _AppBarScreenState extends State<AppBarScreen> {
     );
   }
 }
-

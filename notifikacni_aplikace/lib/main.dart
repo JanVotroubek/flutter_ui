@@ -2,13 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'notifications.dart';
 import 'about.dart';
-import 'help.dart';
 import 'profile.dart';
 import 'settings.dart';
-
-/*
-import 'settings.dart';
-*/
 
 void main() {
   runApp(MainPage(scaffoldKey: scaffoldKey));
@@ -155,6 +150,7 @@ class AppDrawer extends StatelessWidget {
               ),
             ],
           ),
+
           titleSpacing: 0,
           leading: IconButton(
             iconSize: 26,
@@ -165,11 +161,12 @@ class AppDrawer extends StatelessWidget {
             },
           ),
         ),
+
         Expanded(
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-                ListTile(
+              ListTile(
                 tileColor: const Color(0xFFfefae0),
                 leading: const Icon(Icons.home),
                 title: const Text('Home'),
@@ -185,6 +182,7 @@ class AppDrawer extends StatelessWidget {
                   );
                 },
               ),
+
                ListTile(
                 tileColor: const Color(0xFFfefae0),
                 leading: const Icon(Icons.notifications),
@@ -201,6 +199,7 @@ class AppDrawer extends StatelessWidget {
                   );
                 },
               ),
+
               ListTile(
                 leading: const Icon(Icons.settings),
                 title: const Text('Settings'),
@@ -214,10 +213,10 @@ class AppDrawer extends StatelessWidget {
                         scaffoldKey: GlobalKey<ScaffoldState>(),
                       ),
                     ),
-                  );
-                  // Handle the tap
+                  );// Handle the tap
                 },
               ),
+
               ListTile(
                 tileColor: const Color(0xFFfefae0),
                 leading: const Icon(Icons.person),
@@ -231,57 +230,41 @@ class AppDrawer extends StatelessWidget {
                         scaffoldKey: GlobalKey<ScaffoldState>(),
                       ),
                     ),
-                  );
-                  // Handle the tap
+                  ); // Handle the tap
                 },
               ),
-              ListTile(
-                tileColor: const Color(0xFFfefae0),
-                leading: const Icon(Icons.info),
-                title: const Text('About'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AboutPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
-                      ),
-                    ); // Handle the tap
-                },
-              ),
-                Container(
+
+              Container(
                 color: const Color(0xFFfefae0), // Same color as ListTile
                 height: 1000,
               ),
             ],
           ),
         ),
-          ListTile(
+
+        ListTile(
           tileColor: const Color(0xFFfefae0),
-          leading: const Icon(Icons.help),
-          title: const Text('Help'),
-          onTap: () {
-            Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HelpPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                        ),
+          leading: const Icon(Icons.info),
+          title: const Text('About'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AboutPage(
+                    scaffoldKey: GlobalKey<ScaffoldState>(),
                       ),
-                    );
-            // Handle the tap
-          },
-        ),
+                    ),
+                  ); // Handle the tap
+                },
+              ),
 
         ListTile(
           tileColor: const Color(0xFFfefae0),
           leading: const Icon(Icons.logout),
           title: const Text('Logout'),
           onTap: () {
-            SystemNavigator.pop();// Handle the tap
+          SystemNavigator.pop(); // Handle the tap
           },
         ),
       ],
