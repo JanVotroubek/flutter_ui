@@ -1,16 +1,17 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:notifikacni_aplikace/main.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key, required this.scaffoldKey});
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<SettingsPage> createState() => SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class SettingsPageState extends State<SettingsPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   void _checkPassword() {
@@ -169,7 +170,7 @@ class _SnakeGameState extends State<SnakeGame> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pop(); // Vrátí se zpět na stránku nastavení
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage())); // Vrátí se zpět na stránku nastavení
               },
               child: const Text('Back to Main Page'),
             ),

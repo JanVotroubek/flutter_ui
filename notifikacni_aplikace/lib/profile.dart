@@ -1,45 +1,28 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
-// Import the SystemNavigator class
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key, required this.scaffoldKey});
-  final GlobalKey<ScaffoldState> scaffoldKey;
+class ProfileApp extends StatelessWidget {
+  const ProfileApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'nAPP MVČR',
-      home: AppBarScreen(title: 'nAPP MVČR', scaffoldKey: scaffoldKey),
+      home: ProfilePage()
     );
   }
 }
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-class AppBarScreen extends StatefulWidget {
-  const AppBarScreen({super.key, required this.title, required this.scaffoldKey});
-  final String title;
-  final GlobalKey<ScaffoldState> scaffoldKey;
+class ProfilePage extends StatelessWidget {
+  const ProfilePage ({super.key});
 
-  @override
-  State<AppBarScreen> createState() => _AppBarScreenState();
-}
-
-class _AppBarScreenState extends State<AppBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: widget.scaffoldKey,
-      appBar: AppBarName(scaffoldKey: widget.scaffoldKey),
-      drawer: AnimatedContainer(
-        duration: const Duration(milliseconds: 1000),
-        curve: Curves.easeInOut,
-        child: const Drawer(
-          child: AppDrawer(),
-        ),
-      ),
-      drawerEdgeDragWidth: MediaQuery.of(context).size.width, // Set the drag width to the full width of the screen
+      appBar: AppBarName(),
+      drawer: AppDrawer(),
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width,
       body: Container(
         padding: const EdgeInsets.all(20),
         width: double.infinity,

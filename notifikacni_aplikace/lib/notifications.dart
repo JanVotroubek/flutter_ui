@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 
-
-void main() {
-  runApp(const NotificationsApp());
-}
-
 class NotificationsApp extends StatelessWidget {
   const NotificationsApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'nAPP MVČR',
+      title: 'NotifyAPP',
+      home: NotificationsPage(),
       initialRoute: '/',
       routes: {
-        '/': (context) => NotificationsPage(scaffoldKey: GlobalKey<ScaffoldState>()),
+        '/': (context) => NotificationsApp(),
         '/history': (context) => const NotificationHistoryScreen(),
         '/my_notifications': (context) => const MyNotificationsScreen(),
         '/urgent_notifications': (context) => const UrgentNotificationsScreen(),
@@ -25,33 +21,13 @@ class NotificationsApp extends StatelessWidget {
 }
 
 class NotificationsPage extends StatelessWidget {
-  const NotificationsPage({super.key, required this.scaffoldKey});
-  final GlobalKey<ScaffoldState> scaffoldKey;
+  const NotificationsPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return AppBarScreen(title: 'nAPP MVČR', scaffoldKey: scaffoldKey);
-  }
-}
-
-class AppBarScreen extends StatefulWidget {
-  const AppBarScreen({super.key, required this.title, required this.scaffoldKey});
-  final String title;
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  @override
-  State<AppBarScreen> createState() => _AppBarScreenState();
-}
-
-class _AppBarScreenState extends State<AppBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: widget.scaffoldKey,
-      appBar: AppBarName(scaffoldKey: widget.scaffoldKey),
-      drawer: const Drawer(
-        child: AppDrawer(),
-      ),
+      appBar: AppBarName(),
+      drawer: AppDrawer(),
       body: Container(
         padding: const EdgeInsets.all(20),
         width: double.infinity,
@@ -82,11 +58,10 @@ class _AppBarScreenState extends State<AppBarScreen> {
                     ),
                     const SizedBox(height: 20),
 
-                    // Button for Notification History
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF606c38), // Zde změníš barvu pozadí
-                        foregroundColor: Colors.white, // Barva textu
+                        backgroundColor: const Color(0xFF606c38),
+                        foregroundColor: Colors.white,
                       ),
                       onPressed: () {
                         Navigator.pushNamed(context, '/history');
@@ -98,8 +73,8 @@ class _AppBarScreenState extends State<AppBarScreen> {
                     // Button for My Notifications
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF606c38), // Zde změníš barvu pozadí
-                        foregroundColor: Colors.white, // Barva textu
+                        backgroundColor: const Color(0xFF606c38), 
+                        foregroundColor: Colors.white,
                       ),
                       onPressed: () {
                         Navigator.pushNamed(context, '/my_notifications');
@@ -111,8 +86,8 @@ class _AppBarScreenState extends State<AppBarScreen> {
                     // Button for Urgent Notifications
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red, // Zde změníš barvu pozadí
-                        foregroundColor: Colors.white, // Barva textu
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
                       ),
                       onPressed: () {
                         Navigator.pushNamed(context, '/urgent_notifications');

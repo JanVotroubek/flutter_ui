@@ -1,52 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:notifikacni_aplikace/settings.dart';
 import 'notifications.dart';
 import 'about.dart';
 import 'profile.dart';
-import 'settings.dart';
+import 'login.dart';
+
 
 void main() {
-  runApp(MainPage(scaffoldKey: scaffoldKey));
+  runApp(Login());
 }
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key, required this.scaffoldKey});
-  final GlobalKey<ScaffoldState> scaffoldKey;
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'nAPP MVČR',
-      home: AppBarScreen(title: 'nAPP MVČR', scaffoldKey: scaffoldKey),
+      title: 'NotifyAPP',
+      home: MainPage(),
     );
   }
 }
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-class AppBarScreen extends StatefulWidget {
-  const AppBarScreen({super.key, required this.title, required this.scaffoldKey});
-  final String title;
-  final GlobalKey<ScaffoldState> scaffoldKey;
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
-  State<AppBarScreen> createState() => _AppBarScreenState();
+  Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBarName(),
+      body: AppBarScreen(),
+      drawer: AppDrawer(),
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width,
+    );
+  }
 }
 
-class _AppBarScreenState extends State<AppBarScreen> {
+class AppBarName extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  const AppBarName({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        iconSize: 26,
+        icon: const Icon(Icons.menu),
+        color: const Color(0xFFfefae0),
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
+      ),
+      actions: [
+        Image.asset(
+          'images/mvcr_znak.png',
+          width: 50,
+          height: 50,
+        ),
+        const Padding(padding: EdgeInsets.only(right: 10)),
+      ],
+      backgroundColor: const Color(0xFF606c38),
+      title: const Text(
+        'Ministerstvo vnitra ČR',
+        style: TextStyle(
+          fontSize: 22.5,
+          fontFamily: 'Rethink Sans',
+          fontWeight: FontWeight.bold,
+          color: Color(0xFFfefae0),
+        ),
+      ),
+      titleSpacing: 0,
+    );
+  }
+}
+
+class AppBarScreen extends StatelessWidget {
+  const AppBarScreen({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: widget.scaffoldKey,
-      appBar: AppBarName(scaffoldKey: widget.scaffoldKey),
-      drawer: AnimatedContainer(
-        duration: const Duration(milliseconds: 1000),
-        curve: Curves.easeInOut,
-        child: const Drawer(
-          child: AppDrawer(),
-        ),
-      ),
-      drawerEdgeDragWidth: MediaQuery.of(context).size.width, // Set the drag width to the full width of the screen
       body: Container(
         padding: const EdgeInsets.all(20),
         width: double.infinity,
@@ -75,7 +112,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
                       color: Colors.black,
                     ),
                   ),
-                ],
+                ], // Children
               ),
             ),
           ),
@@ -86,53 +123,13 @@ class _AppBarScreenState extends State<AppBarScreen> {
   }
 }
 
-class AppBarName extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarName({super.key, required this.scaffoldKey});
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-    leading: IconButton(
-      iconSize: 26,
-      icon: const Icon(Icons.menu),
-      color: const Color(0xFFfefae0),
-      onPressed: () {
-        scaffoldKey.currentState!.openDrawer();
-      },
-    ),
-    actions: [
-      Image.asset(
-        'images/mvcr_znak.png',
-        width: 50,
-        height: 50,
-      ),
-    const Padding(padding: EdgeInsets.only(right: 10)),
-    ],
-    backgroundColor: const Color(0xFF606c38),
-    title: const Text(
-      'Ministerstvo vnitra ČR',
-      style: TextStyle(
-        fontSize: 22.5,
-        fontFamily: 'Rethink Sans',
-        fontWeight: FontWeight.bold,
-        color: Color(0xFFfefae0),
-      ),
-    ),
-        titleSpacing: 0
-  );
-  }
-}
-
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Drawer(
+      child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         AppBar(
@@ -165,6 +162,8 @@ class AppDrawer extends StatelessWidget {
         Expanded(
           child: ListView(
             padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               ListTile(
                 tileColor: const Color(0xFFfefae0),
@@ -175,15 +174,13 @@ class AppDrawer extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MainPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                      ),
+                      builder: (context) => MainApp(),
                     ),
                   );
                 },
               ),
 
-               ListTile(
+              ListTile(
                 tileColor: const Color(0xFFfefae0),
                 leading: const Icon(Icons.notifications),
                 title: const Text('Notifications'),
@@ -192,9 +189,7 @@ class AppDrawer extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => NotificationsPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                      ),
+                      builder: (context) => NotificationsPage()
                     ),
                   );
                 },
@@ -210,7 +205,7 @@ class AppDrawer extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => SettingsPage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
+                        scaffoldKey: GlobalKey<ScaffoldState>()
                       ),
                     ),
                   );// Handle the tap
@@ -226,9 +221,7 @@ class AppDrawer extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfilePage(
-                        scaffoldKey: GlobalKey<ScaffoldState>(),
-                      ),
+                      builder: (context) => ProfileApp(),
                     ),
                   ); // Handle the tap
                 },
@@ -251,9 +244,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AboutPage(
-                    scaffoldKey: GlobalKey<ScaffoldState>(),
-                      ),
+                  builder: (context) => AboutApp(),
                     ),
                   ); // Handle the tap
                 },
@@ -264,10 +255,17 @@ class AppDrawer extends StatelessWidget {
           leading: const Icon(Icons.logout),
           title: const Text('Logout'),
           onTap: () {
-          SystemNavigator.pop(); // Handle the tap
-          },
-        ),
-      ],
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginPage(),
+                ),
+              ); // Handle the tap
+            },
+          ),
+        ],
+      ),
     );
   }
 }
