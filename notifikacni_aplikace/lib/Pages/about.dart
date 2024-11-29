@@ -36,12 +36,13 @@ class AboutPage extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: const Color(0xFFfefae0),
                       border: Border.all(width: 1.75),
                       borderRadius: BorderRadius.circular(25),
                     ),
-                    child: Image.asset('images/flutter.png', width: 125, height: 125),
+                    child: Image.asset('images/flutter.png', width: 125, height: 125, fit: BoxFit.cover),
                   ),
                   const SizedBox(height: 16),
                   const Text(

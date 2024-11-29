@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:notifikacni_aplikace/main.dart';
+import 'package:notifikacni_aplikace/Pages/main.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key, required this.scaffoldKey});

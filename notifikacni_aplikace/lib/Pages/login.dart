@@ -27,14 +27,18 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+              padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black, width: 1),
                 borderRadius: BorderRadius.all(Radius.circular(10),
                 ),
-                image: DecorationImage(image: AssetImage('images/mvcr_znak.png')),
               ),
+              child: Image.asset(
+                'images/flutter.png',
+                fit: BoxFit.cover,
               height: 150, width: 150,
               ),
+            ),
             const SizedBox(height: 40),
             const Text(
               'Login Page -- MVČR',
@@ -73,7 +77,7 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
+                  style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: const Color(0xFFfefae0),
                   alignment: Alignment.center,
