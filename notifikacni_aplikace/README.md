@@ -2,7 +2,7 @@
 
 **Welcome!**
 This is a project created at the end of year 2024. The whole idea came from Ministry of the Interior.
-It's being made by two IT highschool students from Czechia.
+It's being made by two IT high school students from Czechia.
 Working on it from 7th October till today. 
 
 *This application is still in development and we <ins>don't recommend</ins> you using it.*
@@ -18,7 +18,7 @@ This application contains:
     Types of Pages --> AboutPage, ProfilePage, LoginPage, SettingsPage and MainPage
     Containing Easter Egg
 
-- Backhend:
+- Backend:
     Made in Node.js, but will be rewritten into ASP.NET API
     *There are no files containing it*
 

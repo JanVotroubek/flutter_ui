@@ -34,7 +34,6 @@ class MainPage extends StatelessWidget {
       appBar: AppBarName(),
       body: AppBarScreen(),
       drawer: AppDrawer(),
-      drawerEdgeDragWidth: MediaQuery.of(context).size.width,
     );
   }
 }
@@ -46,6 +45,24 @@ class AppBarName extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    
+    bool isPhone = screenWidth < 500 && screenWidth >= 375;
+    bool isLargePhone = screenWidth >= 500 && screenWidth < 750;
+    bool isTablet = screenWidth >= 750;
+
+    // Dynamická velikost písma podle šířky
+    double fontSize = 0;
+    if (isPhone) {
+      fontSize = (screenWidth * 0.08).clamp(16.0, 24.0); // Malé telefony
+    } else if (isLargePhone) {
+      fontSize = (screenWidth * 0.1).clamp(20.0, 30.0); // Větší telefony
+    } else if (isTablet) {
+      fontSize = (screenWidth * 0.12).clamp(24.0, 36.0); // Tablety a větší zařízení
+    } else if (screenWidth <= 375) {
+      fontSize = 19;
+    }
+
     return AppBar(
       leading: IconButton(
         iconSize: 26,
@@ -64,10 +81,10 @@ class AppBarName extends StatelessWidget implements PreferredSizeWidget {
         ),
       ],
       backgroundColor: const Color(0xFF606c38),
-      title: const Text(
+      title: Text(
         'Ministerstvo vnitra ČR',
         style: TextStyle(
-          fontSize: 22.5,
+          fontSize: fontSize,
           fontFamily: 'Rethink Sans',
           fontWeight: FontWeight.bold,
           color: Color(0xFFfefae0),
@@ -123,25 +140,75 @@ class AppBarScreen extends StatelessWidget {
   }
 }
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
 
   @override
+  _AppDrawerState createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+  final GlobalKey columnKey = GlobalKey();
+  double columnHeight = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Zavoláme po vykreslení widgetu
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getColumnHeight(columnKey);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;    
+    bool isPhone = screenWidth < 500 && screenWidth >= 375;
+    bool isLargePhone = screenWidth >= 500 && screenWidth < 750;
+    bool isTablet = screenWidth >= 750;
+
+    // Dynamická velikost písma podle šířky
+    double fontSize = 0;
+    if (isPhone) {
+      fontSize = (screenWidth * 0.08).clamp(16.0, 28.0); // Malé telefony
+    } else if (isLargePhone) {
+      fontSize = (screenWidth * 0.1).clamp(20.0, 30.0); // Větší telefony
+    } else if (isTablet) {
+      fontSize = (screenWidth * 0.12).clamp(24.0, 34.0); // Tablety a větší zařízení
+    }
+    else if (screenWidth <= 375) {
+      fontSize = 20;
+    }
+    // Dynamická šířka Draweru podle šířky obrazovky
+    double drawerWidth = 0;
+    if (isPhone) {
+      drawerWidth = 250;  // Menší Drawer pro telefony
+    } else if (isLargePhone) {
+      drawerWidth = 280;  // Trochu širší pro větší telefony
+    } else if (isTablet) {
+      drawerWidth = 310;  // Větší Drawer pro tablety a větší zařízení
+    }
+    else if (screenWidth <= 375) {
+      drawerWidth = 220;
+    }
+
     return Drawer(
+      width: drawerWidth,
       child: Column(
+        key: columnKey,
         children: <Widget>[
           AppBar(
             backgroundColor: const Color(0xFF606c38),
-            title: const Row(
+            title: Row(
               children: [
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   'MENU',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: fontSize,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFfefae0),
+                    color: const Color(0xFFfefae0),
                   ),
                 ),
               ],
@@ -158,18 +225,21 @@ class AppDrawer extends StatelessWidget {
           ),
           
           _buildDrawerItem(
+            padding: Padding(padding: EdgeInsets.all(10)),
             context: context,
             icon: Icons.home,
             title: 'Home',
             page: MainApp(),
           ),
           _buildDrawerItem(
+            padding: Padding(padding: EdgeInsets.all(10)),
             context: context,
             icon: Icons.notifications,
             title: 'Notifications',
             page: NotificationsPage(),
           ),
           _buildDrawerItem(
+            padding: Padding(padding: EdgeInsets.all(10)),
             context: context,
             icon: Icons.settings,
             title: 'Settings',
@@ -178,22 +248,28 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           _buildDrawerItem(
+            padding: Padding(padding: EdgeInsets.all(10)),
             context: context,
             icon: Icons.person,
             title: 'Profile',
             page: ProfileApp(),
           ),
+
           Container(
+            height: columnHeight - 6 * 48 - 56,
+            width: double.infinity,
             color: const Color(0xFFfefae0),
-            height: 331,
-          ),
+          ), // Mezera mezi Profile a About
+
           _buildDrawerItem(
+            padding: Padding(padding: EdgeInsets.all(10)),
             context: context,
             icon: Icons.info,
             title: 'About',
             page: AboutApp(),
           ),
           _buildDrawerItem(
+            padding: Padding(padding: EdgeInsets.all(10)),
             context: context,
             icon: Icons.logout,
             title: 'Logout',
@@ -204,16 +280,40 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
+  void getColumnHeight(GlobalKey key) {
+    final RenderBox renderBox = key.currentContext!.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+    setState(() {
+      columnHeight = size.height; // Získání výšky Column
+    });
+  }
+
   Widget _buildDrawerItem({
+    required Padding padding,
     required BuildContext context,
     required IconData icon,
     required String title,
     required Widget page,
   }) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isPhone = screenWidth < 500;
+    bool isLargePhone = screenWidth >= 500 && screenWidth < 750;
+    bool isTablet = screenWidth >= 750;
+
+    // Dynamická velikost písma podle šířky
+    double fontSize = 0;
+    if (isPhone) {
+      fontSize = (screenWidth * 0.08).clamp(12.0, 16.0); // Malé telefony
+    } else if (isLargePhone) {
+      fontSize = (screenWidth * 0.1).clamp(16.0, 18.0); // Větší telefony
+    } else if (isTablet) {
+      fontSize = (screenWidth * 0.12).clamp(18.0, 20.0); // Tablety a větší zařízení
+    }
+
     return ListTile(
       tileColor: const Color(0xFFfefae0),
       leading: Icon(icon),
-      title: Text(title),
+      title: Text(title, style: TextStyle(fontSize: fontSize)),
       onTap: () {
         Navigator.pop(context);
         Navigator.push(
