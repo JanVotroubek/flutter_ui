@@ -9,85 +9,91 @@ class Login extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Login',
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 }
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 300,
-        backgroundColor: const Color(0xFFfefae0),
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 1),
-                borderRadius: BorderRadius.all(Radius.circular(10),
-                ),
-              ),
-              child: Image.asset(
-                'images/flutter.png',
-                fit: BoxFit.cover,
-              height: 150, width: 150,
-              ),
-            ),
-            const SizedBox(height: 40),
-            const Text(
-              'Login Page -- MVČR',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 30,
-                fontFamily: 'Rethink Sans',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        centerTitle: true,
-      ),
-      backgroundColor: const Color(0xFFfefae0),
+      backgroundColor: Color(0xFFfefae0),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const SizedBox(height: 20),
-              TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Username',
-                  border: OutlineInputBorder(),
+          mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget> [
+              const SizedBox(height: 120), // Mezera nahoře
+              Image.asset('images/flutter.png', width: 150),
+              const SizedBox(height: 40),
+              
+              // Uživatelské jméno
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-                obscureText: true,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: const Color(0xFFfefae0),
-                  alignment: Alignment.center,
-                  textStyle: const TextStyle(
-                    fontSize: 25,
-                    fontFamily: 'Rethink Sans',
-                    fontWeight: FontWeight.bold,
+                child: const TextField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                    border: InputBorder.none,
+                    labelText: 'Uživatelské jméno',
+                    prefixIcon: Icon(Icons.person),
                   ),
                 ),
-                onPressed: () {
+              ),
+              const SizedBox(height: 20),
+              
+              // Heslo
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child: const TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                    border: InputBorder.none,
+                    labelText: 'Heslo',
+                    prefixIcon: Icon(Icons.lock),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              
+              // Přihlašovací tlačítko
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF606c38),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                  ),
+                  onPressed: () {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
@@ -95,9 +101,30 @@ class LoginPage extends StatelessWidget {
                       builder: (context) => const MainApp(),
                     ),
                   );
-                },
-                child: const Text('Login'),
+                    // Přihlášení
+                  },
+                  child: const Text(
+                    'Přihlásit se',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
+
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  // Zapomenuté heslo
+                },
+                child: const Text(
+                  'Zapomněli jste heslo?',
+                  style: TextStyle(color: Colors.black54),
+                ),
+              ),
+
+              const SizedBox(height: 50),
             ],
           ),
         ),

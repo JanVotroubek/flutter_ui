@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notifikacni_aplikace/Pages/settings.dart';
+import 'package:flutter/services.dart';
+import 'settings.dart';
 import 'notifications.dart';
 import 'about.dart';
 import 'profile.dart';
@@ -7,7 +8,14 @@ import 'login.dart';
 
 
 void main() {
-  runApp(Login());
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(Login());
+  });
 }
 
 class MainApp extends StatelessWidget {
@@ -34,6 +42,7 @@ class MainPage extends StatelessWidget {
       appBar: AppBarName(),
       body: AppBarScreen(),
       drawer: AppDrawer(),
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width,
     );
   }
 }
@@ -64,6 +73,7 @@ class AppBarName extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return AppBar(
+      backgroundColor: const Color(0xFF606c38),
       leading: IconButton(
         iconSize: 26,
         icon: const Icon(Icons.menu),
@@ -80,7 +90,6 @@ class AppBarName extends StatelessWidget implements PreferredSizeWidget {
         const Padding(padding: EdgeInsets.only(right: 15),
         ),
       ],
-      backgroundColor: const Color(0xFF606c38),
       title: Text(
         'Ministerstvo vnitra ČR',
         style: TextStyle(
@@ -149,20 +158,10 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   final GlobalKey columnKey = GlobalKey();
-  double columnHeight = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Zavoláme po vykreslení widgetu
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getColumnHeight(columnKey);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height - 102.5;
     double screenWidth = MediaQuery.of(context).size.width;    
     bool isPhone = screenWidth < 500 && screenWidth >= 375;
     bool isLargePhone = screenWidth >= 500 && screenWidth < 750;
@@ -256,10 +255,10 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
 
           Container(
-            height: columnHeight - 6 * 48 - 56,
+            height: screenHeight - 7 * 48 + 0.2,
             width: double.infinity,
             color: const Color(0xFFfefae0),
-          ), // Mezera mezi Profile a About
+          ),
 
           _buildDrawerItem(
             padding: Padding(padding: EdgeInsets.all(10)),
@@ -280,14 +279,6 @@ class _AppDrawerState extends State<AppDrawer> {
     );
   }
 
-  void getColumnHeight(GlobalKey key) {
-    final RenderBox renderBox = key.currentContext!.findRenderObject() as RenderBox;
-    final size = renderBox.size;
-    setState(() {
-      columnHeight = size.height; // Získání výšky Column
-    });
-  }
-
   Widget _buildDrawerItem({
     required Padding padding,
     required BuildContext context,
@@ -303,7 +294,7 @@ class _AppDrawerState extends State<AppDrawer> {
     // Dynamická velikost písma podle šířky
     double fontSize = 0;
     if (isPhone) {
-      fontSize = (screenWidth * 0.08).clamp(12.0, 16.0); // Malé telefony
+      fontSize = (screenWidth * 0.08).clamp(14.0, 16.0); // Malé telefony
     } else if (isLargePhone) {
       fontSize = (screenWidth * 0.1).clamp(16.0, 18.0); // Větší telefony
     } else if (isTablet) {
