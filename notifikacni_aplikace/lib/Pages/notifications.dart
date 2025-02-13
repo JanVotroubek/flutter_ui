@@ -7,7 +7,7 @@ class NotificationsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'NotifyAPP',
+      title: 'Notifications',
       home: NotificationsPage(),
       initialRoute: '/',
       routes: {
@@ -26,6 +26,7 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width * 0.4,
       appBar: AppBarName(),
       drawer: AppDrawer(),
       body: Container(

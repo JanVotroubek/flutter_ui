@@ -8,7 +8,7 @@ class ProfileApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'nAPP MVČR',
+      title: 'Profile',
       home: ProfilePage()
     );
   }

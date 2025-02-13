@@ -6,7 +6,6 @@ import 'about.dart';
 import 'profile.dart';
 import 'login.dart';
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   
@@ -25,7 +24,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'NotifyAPP',
+      title: 'MainPage',
       home: MainPage(),
     );
   }
@@ -42,7 +41,7 @@ class MainPage extends StatelessWidget {
       appBar: AppBarName(),
       body: AppBarScreen(),
       drawer: AppDrawer(),
-      drawerEdgeDragWidth: MediaQuery.of(context).size.width,
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width * 0.4,
     );
   }
 }

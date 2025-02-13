@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'forgot_psw.dart';
+import 'registration.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -29,7 +31,7 @@ class LoginPage extends StatelessWidget {
           child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
-              const SizedBox(height: 120), // Mezera nahoře
+              const SizedBox(height: 120),
               Image.asset('images/flutter.png', width: 150),
               const SizedBox(height: 40),
               
@@ -57,7 +59,6 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               
-              // Heslo
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -82,7 +83,6 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               
-              // Přihlašovací tlačítko
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -101,7 +101,6 @@ class LoginPage extends StatelessWidget {
                       builder: (context) => const MainApp(),
                     ),
                   );
-                    // Přihlášení
                   },
                   child: const Text(
                     'Přihlásit se',
@@ -113,14 +112,38 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               TextButton(
                 onPressed: () {
-                  // Zapomenuté heslo
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                      MaterialPageRoute(
+                      builder: (context) => const ForgotPswPage(),
+                    ),
+                  );
                 },
                 child: const Text(
                   'Zapomněli jste heslo?',
-                  style: TextStyle(color: Colors.black54),
+                  style: TextStyle(color: Color(0xFF606c38), 
+                  fontWeight: FontWeight.bold),
+                ),
+              ),
+
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Registration()),
+                  );
+                },
+                child: const Text(
+                  'Nemáte účet? Zaregistrujte se',
+                  style: TextStyle(
+                    color: Color(0xFF606c38),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
 

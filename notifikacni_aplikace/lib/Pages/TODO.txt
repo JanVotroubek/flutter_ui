@@ -1,0 +1,5 @@
+Registration PAGE:
+-- Implement Registration Logic
+
+Password TextBoxes (ALL):
+-- Implement eye for visible password (Add stateful Widgets)
